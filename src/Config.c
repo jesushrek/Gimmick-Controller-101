@@ -48,7 +48,7 @@ void load_config(Mouse* rat, const char* config_path)
         else
         { 
             int idx, dpi, r, g, b, active;
-            int parsed = sscanf(line, "%d, %d, %d, %d, %d, %d", &idx, &dpi, &r, &g, &b, &active);
+            int parsed = sscanf(line, " %d, %d, %d, %d, %d, %d", &idx, &dpi, &r, &g, &b, &active);
             if (parsed == 6) 
             { 
                 if (idx >= 1 && idx <= 6)
@@ -78,7 +78,7 @@ void save_config(Mouse* rat, const char* config_path)
     fprintf(file, "#Profile, DPI, RED, Green, Blue, Active\n");
     for (int i = 0; i < 6; ++i)
     { 
-        fprintf(file, "%5d, %5d, %5d, %5d, %5d, %5d\n", i + 1, 
+        fprintf(file, " %5d, %5d, %5d, %5d, %5d, %5d\n", i + 1, 
 
                 rat->profiles[i].dpi_value, 
                 rat->profiles[i].red, 
@@ -88,8 +88,8 @@ void save_config(Mouse* rat, const char* config_path)
                );
     }
 
-    fprintf(file, "#Scheme, Duration, (Y, B, V, G, R, C, W)\n");
-    fprintf(file, "GLOBAL, %s, %d, %4d, %d, %d, %d, %d, %d, %d\n", 
+    fprintf(file, " #Scheme, Duration, (Y, B, V, G, R, C, W)\n");
+    fprintf(file, " GLOBAL, %s, %d, %4d, %d, %d, %d, %d, %d, %d\n", 
             rat->rgb_scheme,
             rat->scheme_duration,
             rat->cycle_enabled_colors[0]? 1 : 0,
