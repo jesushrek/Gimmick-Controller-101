@@ -1,3 +1,9 @@
 Gimmick controls for a cheap chinese "Gaming mouse"
 
-This is still largly work in progress and isn't is only used by me will be working on a gui later
+This is still largly work in progress and isn't is only used by me will be working on a gui later 
+
+product id differs
+udev rule:
+
+sudo vim /etc/udev/rules.d/99-fantech-x9.rules then paste :-
+SUBSYSTEM=="usb", ATTR{idVendor}=="18f8", ATTR{idProduct}=="0fc0", MODE="0660", GROUP="plugdev"
