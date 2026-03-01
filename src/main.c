@@ -8,8 +8,7 @@
 #include <stdint.h>
 #include <libusb-1.0/libusb.h>
 
-const char* config_path = "config.csv";
-
+const char* config_path = "/home/voyager-1/.config/gimmicks.csv";
 int main() 
 { 
     Mouse mouse = {0};
