@@ -253,6 +253,7 @@ int main()
             { 
                 int last_index = 0;
                 Color colors[7] = {0};
+                if (rat.scheme_duration > 0)
                 for (int i = 0; i < 7; ++i)
                 { 
                     if (rat.cycle_enabled_colors[i])
@@ -348,7 +349,7 @@ int main()
 
             if (clear_profiles)
             {
-                for (int i = 0; i < 7; ++i)
+                for (int i = 0; i < 6; ++i)
                     rat.profiles[i].is_active = false;
 
                 clear_profiles = false;
