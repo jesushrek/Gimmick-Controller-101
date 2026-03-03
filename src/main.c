@@ -3,6 +3,7 @@
 #include "./Config.h"
 #include "./Types.h"
 #include "./Driver.h"
+#include "./Arg.h"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -10,7 +11,7 @@
 
 const char* config_path = "/home/voyager-1/.config/gimmicks.csv";
 
-int main() 
+int main(int argc, char* argv[]) 
 { 
     Mouse mouse = {0};
     load_config(&mouse, config_path);
@@ -22,6 +23,13 @@ int main()
         printf("Error code: %d", result);
 
     mouse_init(&mouse, ctx);
+
+    if (!parse_arguments(argc, argv, &mouse))
+    {
+        printf("Usage: %s [-p 1-6] [-dpi value] [-color RRGGBB] [-sync]\n", argv[0]);
+        return -1;
+    }
+
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
     save_config(&mouse, config_path);

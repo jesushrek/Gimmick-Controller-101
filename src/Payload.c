@@ -152,4 +152,3 @@ void sendPayload(libusb_device_handle *handle, uint8_t *packet)
 {
     libusb_control_transfer(handle, BM_REQUEST_TYPE, B_REQUEST, W_VALUE, W_INDEX, packet, 8, 1000);
 }
-

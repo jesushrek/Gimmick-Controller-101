@@ -211,78 +211,17 @@ int main()
 
     bool close_button_pressed = false;
 
+    int image_x = _width - 590;
+    int image_y = _height / 2;
+
     while(!WindowShouldClose())
     { 
         bool lock_mode = edit_mode_rgbscheme || edit_mode_duration || edit_mode;
         if (lock_mode) GuiLock();
 
-        int image_x = _width - 590;
-        int image_y = _height / 2;
         BeginDrawing(); 
         { 
             ClearBackground(background_color);
-            Color mouse_color = temp_color[rat.current_profile_index - 1];
-            if (temp_rgb_scheme == 0)
-            { 
-                mouse_color = (Color){ 0, 0, 0, 255 };
-                DrawTexture(texture, image_x, image_y, mouse_color);
-            }
-
-            if (temp_rgb_scheme == 2)
-            {
-                DrawTexture(texture, image_x, image_y, mouse_color);
-            }
-
-            if (temp_rgb_scheme == 1)
-            { 
-                Color mouse_color = temp_color[rat.current_profile_index - 1];
-                if (rat.scheme_duration > 0)
-                { 
-                    float sineValue = sinf(GetTime() * (PI * 2 / (float)rat.scheme_duration));
-                    float pulse = ((sineValue + 1.0f) * 127.0f);
-                    mouse_color.a = (unsigned char)pulse;
-                }
-                else 
-                { 
-                    mouse_color.a = 255;
-                }
-                DrawTexture(texture, image_x, image_y, mouse_color);
-            }
-
-            if (temp_rgb_scheme == 3)
-            { 
-                int last_index = 0;
-                Color colors[7] = {0};
-                if (rat.scheme_duration > 0)
-                for (int i = 0; i < 7; ++i)
-                { 
-                    if (rat.cycle_enabled_colors[i])
-                    { 
-                        colors[last_index++] = color[i];
-                    }
-                }
-
-                if (last_index > 0)
-                {
-                    float cycle_speed = (rat.scheme_duration > 0)? (float)rat.scheme_duration : 1.0f;
-                    int color_index = (int)(GetTime() / cycle_speed) % last_index;
-
-                    Color mouse_color = colors[color_index];
-                    if (rat.scheme_duration > 0)
-                    { 
-                        float sineValue = sinf(GetTime() * (PI * 2 / (float)rat.scheme_duration));
-                        float pulse = ((sineValue + 1.0f) * 127.0f);
-                        mouse_color.a = (unsigned char)pulse;
-                    }
-                    else 
-                    { 
-                        mouse_color.a = 255;
-                    }
-
-                    DrawTexture(texture, image_x, image_y, mouse_color);
-                }
-            }
-
             GuiLabel( getRectangle( _width - slider_width, slider_height - _paddingY * 2, "DPI", 0, 0), "DPI");
 
             GuiLabel( getRectangle( 0, 0, "Gimmick Control Centre", 0, 0), "Gimmick Control Centre");
@@ -416,6 +355,69 @@ int main()
             {
                 strcpy(rat.rgb_scheme, rgb_map[temp_rgb_scheme]);
             }
+
+            Color mouse_color = temp_color[rat.current_profile_index - 1];
+            if (temp_rgb_scheme == 0)
+            { 
+                mouse_color = (Color){ 0, 0, 0, 255 };
+                DrawTexture(texture, image_x, image_y, mouse_color);
+            }
+
+            if (temp_rgb_scheme == 2)
+            {
+                DrawTexture(texture, image_x, image_y, mouse_color);
+            }
+
+            if (temp_rgb_scheme == 1)
+            { 
+                Color mouse_color = temp_color[rat.current_profile_index - 1];
+                if (rat.scheme_duration > 0)
+                { 
+                    float sineValue = sinf(GetTime() * (PI * 2 / (float)rat.scheme_duration));
+                    float pulse = ((sineValue + 1.0f) * 127.0f);
+                    mouse_color.a = (unsigned char)pulse;
+                }
+                else 
+                { 
+                    mouse_color.a = 255;
+                }
+                DrawTexture(texture, image_x, image_y, mouse_color);
+            }
+
+            if (temp_rgb_scheme == 3)
+            { 
+                int last_index = 0;
+                Color colors[7] = {0};
+                if (rat.scheme_duration > 0)
+                    for (int i = 0; i < 7; ++i)
+                    { 
+                        if (rat.cycle_enabled_colors[i])
+                        { 
+                            colors[last_index++] = color[i];
+                        }
+                    }
+
+                if (last_index > 0)
+                {
+                    float cycle_speed = (rat.scheme_duration > 0)? (float)rat.scheme_duration : 1.0f;
+                    int color_index = (int)(GetTime() / cycle_speed) % last_index;
+
+                    Color mouse_color = colors[color_index];
+                    if (rat.scheme_duration > 0)
+                    { 
+                        float sineValue = sinf(GetTime() * (PI * 2 / (float)rat.scheme_duration));
+                        float pulse = ((sineValue + 1.0f) * 127.0f);
+                        mouse_color.a = (unsigned char)pulse;
+                    }
+                    else 
+                    { 
+                        mouse_color.a = 255;
+                    }
+
+                    DrawTexture(texture, image_x, image_y, mouse_color);
+                }
+            }
+
 
         }
         EndDrawing(); 
