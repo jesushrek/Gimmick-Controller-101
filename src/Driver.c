@@ -53,7 +53,6 @@ void mouse_init(Mouse* rat, libusb_context* ctx)
 
 void mouse_close(Mouse* rat, libusb_context* ctx)
 {
-    save_config(rat, config_path);
     libusb_release_interface(rat->handle, W_INDEX);
     libusb_attach_kernel_driver(rat->handle, W_INDEX);
     libusb_close(rat->handle);
@@ -77,7 +76,9 @@ void mouse_apply(Mouse* rat)
         sendPayload(rat->handle, packet);
     }
 
+    prepare_color_mask(rat->cycle_enabled_colors);
     build_rgb_payload(packet, rat->cyclic_color_mask, rat->rgb_scheme, rat->scheme_duration);
+
     sendPayload(rat->handle, packet);
 
     for (int i = 0; i < 6; ++i)
@@ -91,6 +92,10 @@ void mouse_apply(Mouse* rat)
         sendPayload(rat->handle, packet);
     }
 
-    build_dpi_payload(packet, 1, rat->profiles[0].dpi_value, active_mask);
+    if (rat->current_profile_index == 0)
+        rat->current_profile_index = 1;
+
+    if (rat->current_profile_index == 0) rat->current_profile_index = 1;
+    build_dpi_payload(packet, rat->current_profile_index, rat->profiles[rat->current_profile_index - 1].dpi_value, active_mask);
     sendPayload(rat->handle, packet);
 }

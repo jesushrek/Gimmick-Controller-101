@@ -9,6 +9,7 @@
 #include <libusb-1.0/libusb.h>
 
 const char* config_path = "/home/voyager-1/.config/gimmicks.csv";
+
 int main() 
 { 
     Mouse mouse = {0};
@@ -19,9 +20,11 @@ int main()
 
     if (result)
         printf("Error code: %d", result);
+
     mouse_init(&mouse, ctx);
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
+    save_config(&mouse, config_path);
 
     return 0;
 }

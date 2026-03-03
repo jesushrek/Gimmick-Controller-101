@@ -44,7 +44,6 @@ void load_config(Mouse* rat, const char* config_path)
                 rat->cycle_enabled_colors[i] = (bool)temp[i];
             }
 
-
             rat->cyclic_color_mask = prepare_color_mask(rat->cycle_enabled_colors);
         }
         else
