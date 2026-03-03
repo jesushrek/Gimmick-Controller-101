@@ -423,9 +423,9 @@ int main()
 
     if (!close_button_pressed)
     { 
-        mouse_close(&rat, ctx);
         save_config(&rat, config_path);
     }
+    mouse_close(&rat, ctx);
 
     CloseWindow();
     return 0;
