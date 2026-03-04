@@ -9,10 +9,10 @@
 #include <stdint.h>
 #include <libusb-1.0/libusb.h>
 
-const char* config_path = "/home/voyager-1/.config/gimmicks.csv";
 
 int main(int argc, char* argv[]) 
 { 
+    char* config_path = get_config_path();
     Mouse mouse = {0};
     load_config(&mouse, config_path);
 
@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
     save_config(&mouse, config_path);
+    free(config_path);
 
     return 0;
 }

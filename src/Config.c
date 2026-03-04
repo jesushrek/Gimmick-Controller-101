@@ -10,6 +10,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+
+char* get_config_path()
+{ 
+    struct passwd *p;
+    uid_t uid;
+
+    if ((p = getpwuid(uid = getuid())) == NULL)
+    {
+        perror("getpwuid() error");
+    }
+
+    char* buffer = malloc(sizeof(char) * 255);
+    sprintf(buffer, "/home/%s/.config/gimmicks.csv", p->pw_name);
+
+    return buffer;
+}
 
 void load_config(Mouse* rat, const char* config_path)
 {

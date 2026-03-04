@@ -26,7 +26,6 @@
 
 #define _vertical_padding (_paddingY) * (_fontSize)
 
-const char* config_path = "/home/voyager-1/.config/gimmicks.csv";
 const char* duration_options   = "Off;1;2;3;4;5;6";
 const char* rgb_scheme_options = "Off;Fixed;Static;Cyclic";
 
@@ -175,6 +174,7 @@ int main()
     InitWindow(_width, _height, "Gimmick Controller");
     SetTargetFPS(40);
 
+    char* config_path = get_config_path();
     Mouse rat = {0};
 
     int slider_width = 300;
@@ -208,8 +208,6 @@ int main()
         printf("Error code: %d", result);
 
     mouse_init(&rat, ctx);
-
-    bool close_button_pressed = false;
 
     int image_x = _width - 590;
     int image_y = _height / 2;
@@ -306,7 +304,6 @@ int main()
 
             if (close_button())
             { 
-                close_button_pressed = true;
                 break;
             }
             if (clear_colors)
@@ -425,5 +422,6 @@ int main()
 
     mouse_close(&rat, ctx);
     CloseWindow();
+    free(config_path);
     return 0;
 }
