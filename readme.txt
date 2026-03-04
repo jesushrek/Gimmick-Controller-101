@@ -3,7 +3,8 @@ Gimmick controls for a cheap chinese "Gaming mouse"
 This is still largly work in progress and isn't is only used by me will be working on a gui later 
 (gui is complete!)
 
-product id differs
+product id differs you may use lsusb to find it out.
+
 udev rule:
 
 to add the user as a plugdev
