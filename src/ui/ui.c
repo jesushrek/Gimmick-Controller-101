@@ -177,7 +177,7 @@ int main()
     char* config_path = get_config_path();
     Mouse rat = {0};
 
-    int slider_width = 300;
+    int slider_width = 400;
     int slider_height = 10;
 
     bool clear_profiles = false;
@@ -220,17 +220,14 @@ int main()
         BeginDrawing(); 
         { 
             ClearBackground(background_color);
-            GuiLabel( getRectangle( _width - slider_width, slider_height - _paddingY * 2, "DPI", 0, 0), "DPI");
-
             GuiLabel( getRectangle( 0, 0, "Gimmick Control Centre", 0, 0), "Gimmick Control Centre");
-
-
+            GuiLabel( getRectangle( _width - (slider_width / 2), slider_height - _paddingY * 1, "DPI", 0, 0), "DPI");
             for (int i = 0; i < 6; ++i)
             { 
                 float temp = rat.profiles[i].dpi_value;
 
                 rat.profiles[i].dpi_value = dpi_slider(
-                        (float)_width - slider_width * 1.4f,
+                        (float)_width - slider_width * 1.0f,
                         (float)slider_height + _vertical_padding * (i + 1),
                         (float)slider_width,
                         (float)slider_height,
