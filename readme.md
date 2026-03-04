@@ -1,4 +1,4 @@
-# Gimmick controls for a cheap chinese "Gaming mouse"
+# Gimmick controls for a cheap chinese "Gaming mouse" (Fantech ThorX9 but should work on all Fantech mouse)
 
 ## Description:
 
@@ -14,11 +14,12 @@ Add yourself to the plugdev user to access commands without sudo.
 After completing the compilation you should copy the example-config.csv to ~/.config/gimmicks.csv.
 And sync the mouse on startup. or you may write your own daemon to sync it everytime you connect it to the machine.
 
+## udev rule:
+
 sudo usermod -aG plugdev $USER
 sudo vim /etc/udev/rules.d/99-fantech-x9.rules 
 then paste :-
 
-## udev rule:
 SUBSYSTEM=="usb", ATTR{idVendor}=="18f8", ATTR{idProduct}=="0fc0", MODE="0660", GROUP="plugdev"
 
 ## Warning:
