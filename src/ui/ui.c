@@ -423,12 +423,7 @@ int main()
         EndDrawing(); 
     }
 
-    if (!close_button_pressed)
-    { 
-        save_config(&rat, config_path);
-    }
     mouse_close(&rat, ctx);
-
     CloseWindow();
     return 0;
 }
