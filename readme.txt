@@ -1,14 +1,25 @@
 Gimmick controls for a cheap chinese "Gaming mouse"
 
-This is still largly work in progress and isn't is only used by me will be working on a gui later 
-(gui is complete!)
+Description:
 
 product id differs you may use lsusb to find it out.
+Add yourself to the plugdev user to access commands without sudo.
+
+Dependencies:
+for cli: stdio.h, stdlib.h, stdint.h, string.h, unistd.h (which are standard-libc), libusb-1.0
+for Gui: Same as the above but also raygui.h and raylib.h.
+
+Recommended After Installation:
+
+After completing the compilation you should copy the example-config.csv to ~/.config/gimmicks.csv.
+And sync the mouse on startup. or you may write your own daemon to sync it everytime you connect it to the machine.
+
+sudo usermod -aG plugdev $USER
+sudo vim /etc/udev/rules.d/99-fantech-x9.rules 
+then paste :-
 
 udev rule:
-
-to add the user as a plugdev
-sudo usermod -aG plugdev $USER
-
-sudo vim /etc/udev/rules.d/99-fantech-x9.rules then paste :-
 SUBSYSTEM=="usb", ATTR{idVendor}=="18f8", ATTR{idProduct}=="0fc0", MODE="0660", GROUP="plugdev"
+
+Warning:
+The ui may not be as reliable as changing the ~/.config/gimmicks.csv yourself, as this is the first gui I have ever written.
