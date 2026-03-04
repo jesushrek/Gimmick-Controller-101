@@ -121,9 +121,9 @@ bool save_button()
 
 bool draw_color_selection(int x, int y, int profile_index, Color color)
 { 
-    const char *profile_text = TextFormat("Profile %d", profile_index);
+    const char *profile_text = TextFormat("    Profile %d", profile_index);
     DrawRectangle(x, y + 4, 10, 10, color);
-    return GuiLabelButton(getRectangle(x + 15, y, profile_text, 0, 0), profile_text);
+    return GuiLabelButton(getRectangle(x, y, profile_text, 0, 0), profile_text);
 }
 
 int select_profile(int x, int y, Mouse* rat)
