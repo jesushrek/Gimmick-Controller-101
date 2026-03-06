@@ -13,7 +13,7 @@
 #include "raygui.h"
 #include <stdint.h>
 
-#define _width 800
+#define _width 900
 #define _height 600
 
 #define _fontSize 10
