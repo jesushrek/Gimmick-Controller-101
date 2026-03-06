@@ -93,7 +93,7 @@ void mouse_apply(Mouse* rat)
         sendPayload(rat->handle, packet);
     }
 
-    rat->current_profile_index = (((rat->current_profile_index - 1) % 6) + 6) % 6 + 1;
+    rat->current_profile_index = rat->current_profile_index ? rat->current_profile_index : 1;
 
     build_dpi_payload(packet, rat->current_profile_index, rat->profiles[rat->current_profile_index - 1].dpi_value, active_mask);
 

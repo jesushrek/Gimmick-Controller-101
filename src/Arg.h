@@ -29,7 +29,6 @@ static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
 bool parse_arguments(int argc, char* argv[], Mouse *rat)
 { 
     if (argc <= 1) return false;
-
     for (int i = 1; i < argc; ++i)
     { 
         if (strcmp(argv[i], "-p") == 0 && (i + 1) < argc)

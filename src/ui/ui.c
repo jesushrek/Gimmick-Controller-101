@@ -13,7 +13,7 @@
 #include "raygui.h"
 #include <stdint.h>
 
-#define _width 900
+#define _width 800
 #define _height 600
 
 #define _fontSize 10
@@ -201,7 +201,6 @@ int main()
         if (strcmp(rat.rgb_scheme, rgb_map[i]) == 0)
             temp_rgb_scheme = i;
     }
-
     int result = libusb_init_context(&ctx, NULL, 0);
 
     if (result)
@@ -220,6 +219,7 @@ int main()
         BeginDrawing(); 
         { 
             ClearBackground(background_color);
+
             GuiLabel( getRectangle( 0, 0, "Gimmick Control Centre", 0, 0), "Gimmick Control Centre");
             GuiLabel( getRectangle( _width - (slider_width / 2), slider_height - _paddingY * 1, "DPI", 0, 0), "DPI");
             for (int i = 0; i < 6; ++i)
