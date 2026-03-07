@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include <libusb-1.0/libusb.h>
 
+
 static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
 { 
     unsigned int tr = 0;
@@ -28,6 +29,7 @@ static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
 
 bool parse_arguments(int argc, char* argv[], Mouse *rat)
 { 
+    char* config_path = get_config_path(); 
     if (argc <= 1) return false;
     for (int i = 1; i < argc; ++i)
     { 
@@ -53,10 +55,11 @@ bool parse_arguments(int argc, char* argv[], Mouse *rat)
         }
         else if (strcmp(argv[i], "-sync") == 0)
         { 
-            return true;
+            save_config(rat, config_path);
         }
     }
 
+    free(config_path);
     return true;
 }
 

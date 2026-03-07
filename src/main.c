@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
-    save_config(&mouse, config_path);
+    //save_config(&mouse, config_path);
     free(config_path);
 
     return 0;
