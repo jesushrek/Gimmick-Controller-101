@@ -1,4 +1,4 @@
-# Gimmick controls for a cheap chinese "Gaming mouse" (Fantech ThorX9 but should work on all Fantech mouse)
+# Gimmick controls for a cheap chinese "Gaming mouse" (Fantech ThorX9 but should work on all Fantech mice)
 
 ## Description:
 
