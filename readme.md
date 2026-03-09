@@ -34,7 +34,7 @@ The ui may not be as reliable as changing the ~/.config/gimmicks.csv yourself, a
 
 ## Special Thanks to 
 - [GuessWhatBBQ](https://github.com/GuessWhatBBQ) for going through the trouble of reverse engineering this mouse.
-- [Raysan](https://github.com/raysan5/raylib) for writing this awesome library.
+- [Raysan](https://github.com/raysan5/raylib) for writing this awesome library called raylib.
 
 ## License
 
