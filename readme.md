@@ -26,15 +26,15 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="18f8", ATTR{idProduct}=="0fc0", MODE="0660", 
 The ui may not be as reliable as changing the ~/.config/gimmicks.csv yourself, as this is the first gui I have ever written.
 
 ## Ui Demo
-![demo](./ui_demo.png)
+-![demo](./ui_demo.png)
 
 ## References
-[Awesome Python version](https://github.com/GuessWhatBBQ/FantechX9ThorDriver)
-[Libusb](https://libusb.sourceforge.io/api-1.0/)
+-[Awesome Python version](https://github.com/GuessWhatBBQ/FantechX9ThorDriver)
+-[Libusb](https://libusb.sourceforge.io/api-1.0/)
 
 ## Special Thanks to 
-[GuessWhatBBQ](https://github.com/GuessWhatBBQ) for going through the trouble of reverse engineering this mouse.
-[Raysan](https://github.com/raysan5/raylib) for writing this awesome library.
+-[GuessWhatBBQ](https://github.com/GuessWhatBBQ) for going through the trouble of reverse engineering this mouse.
+-[Raysan](https://github.com/raysan5/raylib) for writing this awesome library.
 
 ## License
 
