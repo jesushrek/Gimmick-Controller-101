@@ -11,8 +11,8 @@ Add yourself to the plugdev user to access commands without sudo.
 
 ## Recommended After Installation:
 
-After completing the compilation you should copy the example-config.csv to ~/.config/gimmicks.csv.
-And sync the mouse on startup. or you may write your own daemon to sync it everytime you connect it to the machine.
+After completing the compilation you should copy the example-config.csv to ~/.config/gimmicks.csv,
+and sync the mouse on startup or you may write your own daemon to sync it everytime you connect it to the machine.
 
 ## udev rule:
 
@@ -27,3 +27,16 @@ The ui may not be as reliable as changing the ~/.config/gimmicks.csv yourself, a
 
 ## Ui Demo
 ![demo](./ui_demo.png)
+
+## References
+[Awesome Python version](https://github.com/GuessWhatBBQ/FantechX9ThorDriver)
+[Libusb](https://libusb.sourceforge.io/api-1.0/)
+
+## Special Thanks to 
+[GuessWhatBBQ](https://github.com/GuessWhatBBQ) for going through the trouble of reverse engineering this mouse.
+[Raysan](https://github.com/raysan5/raylib) for writing this awesome library.
+
+## License
+
+See [license](./license) for full license and warranty disclaimer.
+Copyright (C) 2026 Sandesh Paudel
