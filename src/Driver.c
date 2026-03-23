@@ -78,12 +78,8 @@ void mouse_apply(Mouse* rat)
 
     rat->cyclic_color_mask = prepare_color_mask(rat->cycle_enabled_colors);
 
-    if (strcmp(rat->rgb_scheme, "Cyclic") != 0 && rat->scheme_duration != 0)
-    {
-        build_rgb_payload(packet, rat->cyclic_color_mask, rat->rgb_scheme, rat->scheme_duration);
-        sendPayload(rat->handle, packet);
-    }
-
+    build_rgb_payload(packet, rat->cyclic_color_mask, rat->rgb_scheme, rat->scheme_duration);
+    sendPayload(rat->handle, packet);
     for (int i = 0; i < 6; ++i)
     { 
         build_color_payload(i+1, packet, 

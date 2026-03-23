@@ -437,6 +437,7 @@ int main()
                     DrawTexture(texture, image_x, image_y, mouse_color);
                 }
             }
+
             int temp_scroll = rat.volume_mode;
             GuiLabel(getRectangle(245, _vertical_padding, "Scroll-Wheel:", 0, 0), "Scroll-Wheel:");
             rat.volume_mode = select_volume_mode(245, _vertical_padding * 2.4f, &temp_scroll);

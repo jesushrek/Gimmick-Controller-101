@@ -47,7 +47,8 @@ void load_config(Mouse* rat, const char* config_path)
             sscanf(line, "Scroll, %d", &temp);
             rat->volume_mode = temp;
         }
-        else if (strncmp(line, "GLOBAL", 6) == 0)
+
+        if (strncmp(line, "GLOBAL", 6) == 0)
         { 
             int temp[7];
             sscanf(line, "GLOBAL,%[^,],%d,%d,%d,%d,%d,%d,%d,%d", 
