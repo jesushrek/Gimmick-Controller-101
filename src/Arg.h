@@ -12,7 +12,6 @@
 #include <stdint.h>
 #include <libusb-1.0/libusb.h>
 
-
 static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
 { 
     unsigned int tr = 0;
@@ -52,6 +51,14 @@ bool parse_arguments(int argc, char* argv[], Mouse *rat)
                     &rat->profiles[idx].green,
                     &rat->profiles[idx].blue
                     );
+        }
+        else if (strcmp(argv[i], "-volume") == 0 && (i + 1) < argc)
+        { 
+            rat->volume_mode = true;
+        }
+        else if (strcmp(argv[i], "-scroll") == 0 && (i + 1) < argc)
+        { 
+            rat->volume_mode = false;
         }
         else if (strcmp(argv[i], "-sync") == 0)
         { 

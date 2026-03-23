@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 
     if (!parse_arguments(argc, argv, &mouse))
     {
-        printf("Usage: %s [-p 1-6] [-dpi value] [-color RRGGBB] [-sync]\n", argv[0]);
+        printf("Usage: %s [-p 1-6] [-dpi value] [-color RRGGBB] [-volume] [-scroll] [-sync]\n", argv[0]);
         return -1;
     }
 

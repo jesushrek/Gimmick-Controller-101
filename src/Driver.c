@@ -78,9 +78,11 @@ void mouse_apply(Mouse* rat)
 
     rat->cyclic_color_mask = prepare_color_mask(rat->cycle_enabled_colors);
 
-    build_rgb_payload(packet, rat->cyclic_color_mask, rat->rgb_scheme, rat->scheme_duration);
-
-    sendPayload(rat->handle, packet);
+    if (strcmp(rat->rgb_scheme, "Cyclic") != 0 && rat->scheme_duration != 0)
+    {
+        build_rgb_payload(packet, rat->cyclic_color_mask, rat->rgb_scheme, rat->scheme_duration);
+        sendPayload(rat->handle, packet);
+    }
 
     for (int i = 0; i < 6; ++i)
     { 
@@ -96,6 +98,8 @@ void mouse_apply(Mouse* rat)
     rat->current_profile_index = rat->current_profile_index ? rat->current_profile_index : 1;
 
     build_dpi_payload(packet, rat->current_profile_index, rat->profiles[rat->current_profile_index - 1].dpi_value, active_mask);
+    sendPayload(rat->handle, packet);
 
+    scroll_wheel_config(packet, rat->volume_mode);
     sendPayload(rat->handle, packet);
 }

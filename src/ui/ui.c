@@ -45,6 +45,7 @@
 
 const char* duration_options   = "Off;1;2;3;4;5;6";
 const char* rgb_scheme_options = "Off;Fixed;Static;Cyclic";
+const char* scroll_options = { "Scroll;Volume" };
 
 const char* rgb_map[] = { "Off", "Fixed", "Static", "Cyclic" };
 
@@ -71,6 +72,7 @@ const Color color[] = {
 static bool edit_mode_rgbscheme = false;
 static bool edit_mode = false;
 static bool edit_mode_duration = false;
+static bool edit_mode_scroll = false;
 
 Color background_color = { 188, 188, 188, 100 };
 
@@ -184,6 +186,14 @@ int select_rgbscheme(int x, int y, int* rgb_scheme_index)
         edit_mode_rgbscheme = !edit_mode_rgbscheme;
 
     return *rgb_scheme_index;
+}
+
+int select_volume_mode(int x, int y, int* volume_mode)
+{ 
+    if (GuiDropdownBox(getRectangle(x, y, "-Scroll-", 0, 0), scroll_options, volume_mode, edit_mode_scroll))
+        edit_mode_scroll = !edit_mode_scroll;
+
+    return *volume_mode;
 }
 
 int main()  
@@ -358,7 +368,6 @@ int main()
                 GuiLabel(getRectangle(_width - 100, 235 - _vertical_padding , "Duration:", 0, 0), "Duration:");
                 rat.scheme_duration = select_duration(_width - 100, 235, &rat.scheme_duration);
             }
-
             GuiLabel(getRectangle(_width - 100, 200 - _vertical_padding , "RGB - Scheme:", 0, 0), "RGB - Scheme:");
             temp_rgb_scheme = select_rgbscheme(_width - 100, 200, &temp_rgb_scheme);
 
@@ -428,8 +437,9 @@ int main()
                     DrawTexture(texture, image_x, image_y, mouse_color);
                 }
             }
-
-
+            int temp_scroll = rat.volume_mode;
+            GuiLabel(getRectangle(245, _vertical_padding, "Scroll-Wheel:", 0, 0), "Scroll-Wheel:");
+            rat.volume_mode = select_volume_mode(245, _vertical_padding * 2.4f, &temp_scroll);
         }
         EndDrawing(); 
     }

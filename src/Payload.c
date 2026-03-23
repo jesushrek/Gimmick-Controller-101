@@ -7,9 +7,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-/* 
- * [0x07, 0x09, active_byte, dpi_profile_byte, active_profiles_byte, 0x00, 0x00, 0x00]
- */
 
 typedef enum {
     M_YELLOW = 0x01, // Bit 0
@@ -90,9 +87,12 @@ uint8_t dpi_profile_byte(int dpi_count, int profile_index)
 
 }
 
-uint8_t scroll_wheel_config(bool volume)
+void scroll_wheel_config(uint8_t* packet, bool volume)
 { 
-    return volume;
+    memset(packet, 0, INSTRUCTION_LENGTH);
+    packet[0] = 0x07;
+    packet[1] = 0x11;
+    packet[2] = volume? 0x1 : 0x0;
 }
 
 uint8_t scale_colors(int value)
