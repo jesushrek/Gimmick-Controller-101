@@ -149,18 +149,24 @@ int select_profile(int x, int y, Mouse* rat)
 { 
     static int profile_index = 0;
 
-    char profile_options[256] = "";
+    char profile_options[256] = {};
+    int active_profile[6] = {};
+    int active = 0;
     for (int i = 0; i < 6; ++i)
     {
         if (rat->profiles[i].is_active)
+        {
             strcat(profile_options, TextFormat("%d;", i + 1));
+            active_profile[active] = i;
+            ++active;
+        }
     }
     profile_options[strlen(profile_options) - 1] = '\0';
 
     if(GuiDropdownBox(getRectangle(x, y, " ", 45, 20), profile_options, &profile_index, edit_mode))
         edit_mode = !edit_mode;
 
-    return profile_index;
+    return active_profile[profile_index];
 }
 
 int select_duration(int x, int y, int* duration_index)
