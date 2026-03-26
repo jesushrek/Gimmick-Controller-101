@@ -197,7 +197,7 @@ int select_rgbscheme(int x, int y, int* rgb_scheme_index)
     return *rgb_scheme_index;
 }
 
-void button_remap(int x, int y, Mouse* rat)
+void button_remap(int x, int y, Mouse* rat, int* values)
 { 
     static int active_dropdown = -1;
     for (int i = 1; i < 6; ++i)
@@ -209,13 +209,21 @@ void button_remap(int x, int y, Mouse* rat)
         bool is_editing = (active_dropdown == i);
 
         if (GuiDropdownBox(getRectangle(x + 60, y + (_fontSize * 2) * i, "-Forward-", 0, 0), button_options, 
-                    &temp_value, is_editing))
+                    &values[i], is_editing))
         {
             if (is_editing) active_dropdown = -1;
             else
             active_dropdown = i;
         }
-        rat->button_map[i] = (uint8_t)temp_value;
+    }
+
+    for (int i = 1; i < 6; ++i)
+    { 
+        if (values[i] != rat->button_map[i])
+        {
+            if (values[i] >= 0 && values[i] < 6)
+                rat->button_map[i] = values[i];
+        }
     }
 }
 
@@ -268,6 +276,14 @@ int main()
 
     int image_x = _width - 590;
     int image_y = _height / 2;
+
+    int values[6] = {0};
+
+    for (int i = 1; i < 6; ++i)
+    {
+        values[i] = rat.button_map[i];
+        printf("value: %d button map: %d\n", values[i], rat.button_map[i]);
+    }
 
     while(!WindowShouldClose())
     { 
@@ -473,7 +489,7 @@ int main()
             GuiLabel(getRectangle(245, _vertical_padding, "Scroll-Wheel:", 0, 0), "Scroll-Wheel:");
             rat.volume_mode = select_volume_mode(245, _vertical_padding * 2.4f, &temp_scroll);
             GuiLabel(getRectangle(5, _vertical_padding * 19.8f, "Remap Buttons:", 0, 0), "Remap Buttons:");
-            button_remap(0, _vertical_padding * 19.8f, &rat);
+            button_remap(0, _vertical_padding * 19.8f, &rat, values);
         }
         EndDrawing(); 
     }
