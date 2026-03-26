@@ -48,8 +48,8 @@ const char* rgb_scheme_options = "Off;Fixed;Static;Cyclic";
 const char* scroll_options = { "Scroll;Volume" };
 
 const char* rgb_map[] = { "Off", "Fixed", "Static", "Cyclic" };
-const char* button_map[] = { "Left", "Middle", "Right", "Backward", "Forward" };
-const char* button_options = { "Left;Middle;Right;Backward;Forward" };
+const char* button_map[] = { "Off", "Left", "Middle", "Right", "Backward", "Forward" };
+const char* button_options = { "Off;Left;Middle;Right;Backward;Forward" };
 
 const char* colors_for_selection[] = { 
     "Yellow",
@@ -171,6 +171,7 @@ int select_profile(int x, int y, Mouse* rat)
     return active_profile[profile_index];
 }
 
+
 int select_duration(int x, int y, int* duration_index)
 { 
     if(GuiDropdownBox(getRectangle(x, y, "--Off--", 0, 0), duration_options, duration_index, edit_mode_duration))
@@ -194,6 +195,30 @@ int select_rgbscheme(int x, int y, int* rgb_scheme_index)
         edit_mode_rgbscheme = !edit_mode_rgbscheme;
 
     return *rgb_scheme_index;
+}
+
+void button_remap(int x, int y, Mouse* rat)
+{ 
+    static int active_dropdown = -1;
+    for (int i = 1; i < 6; ++i)
+        GuiLabel(getRectangle(x + 5, y + (_fontSize * 2) * i, "-Forward-", 0, 0), TextFormat("%s:", button_map[i]));
+    for (int i = 5; i >= 1; --i)
+    {
+        if (active_dropdown != -1 && i > active_dropdown) continue;
+        int temp_value = rat->button_map[i];
+        bool is_editing = (active_dropdown == i);
+        if ( i == 1)
+        printf("%d\n", temp_value);
+
+        if (GuiDropdownBox(getRectangle(x + 60, y + (_fontSize * 2) * i, "-Forward-", 0, 0), button_options, 
+                    &temp_value, is_editing))
+        {
+            if (is_editing) active_dropdown = -1;
+            else
+            active_dropdown = i;
+        }
+        rat->button_map[i] = (uint8_t)temp_value;
+    }
 }
 
 int select_volume_mode(int x, int y, int* volume_mode)
@@ -449,6 +474,8 @@ int main()
             int temp_scroll = rat.volume_mode;
             GuiLabel(getRectangle(245, _vertical_padding, "Scroll-Wheel:", 0, 0), "Scroll-Wheel:");
             rat.volume_mode = select_volume_mode(245, _vertical_padding * 2.4f, &temp_scroll);
+            GuiLabel(getRectangle(5, _vertical_padding * 18.8f, "Remap Buttons:", 0, 0), "Remap Buttons:");
+            button_remap(0, _vertical_padding * 19.8f, &rat);
         }
         EndDrawing(); 
     }

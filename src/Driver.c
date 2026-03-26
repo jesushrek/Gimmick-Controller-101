@@ -70,7 +70,7 @@ void mouse_apply(Mouse* rat)
 
     for (uint8_t i = 1; i <= 5; ++i)
     { 
-        uint8_t target = rat->button_map[i] ? rat->button_map[i] : i;
+        uint8_t target = rat->button_map[i];
         build_button_payload(packet, i, target);
         sendPayload(rat->handle, packet);
     }
