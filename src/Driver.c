@@ -9,7 +9,6 @@
 
 
 extern const char* config_path;
-
 void mouse_init(Mouse* rat, libusb_context* ctx)
 { 
     rat->handle = libusb_open_device_with_vid_pid(ctx, VENDOR_ID, PRODUCT_ID);
@@ -65,8 +64,16 @@ void mouse_apply(Mouse* rat)
 { 
     uint8_t packet[8] = {0};
     int states[6];
-    for (int i = 0; i < 6; i++)
+
+    for (int i = 0; i < 6; ++i)
         states[i] = rat->profiles[i].is_active;
+
+    for (uint8_t i = 1; i <= 5; ++i)
+    { 
+        uint8_t target = rat->button_map[i] ? rat->button_map[i] : i;
+        build_button_payload(packet, i, target);
+        sendPayload(rat->handle, packet);
+    }
 
     uint8_t active_mask = active_profile_byte(states);
 

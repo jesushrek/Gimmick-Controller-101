@@ -47,10 +47,23 @@ void load_config(Mouse* rat, const char* config_path)
             sscanf(line, "Scroll, %d", &temp);
             rat->volume_mode = temp;
         }
-
-        if (strncmp(line, "GLOBAL", 6) == 0)
+        else if (strncmp(line, "BUTTON", 6) == 0)
         { 
-            int temp[7];
+            int src[6], dst[6];
+            sscanf(line, "BUTTON,%d:%d,%d:%d,%d:%d,%d:%d,%d:%d",
+                   &src[1], &dst[1],
+                   &src[2], &dst[2],
+                   &src[3], &dst[3],
+                   &src[4], &dst[4],
+                   &src[5], &dst[5]
+                    );
+
+            for (int i = 1; i <= 5; ++i)
+                rat->button_map[src[i]] = dst[i];
+        }
+        else if (strncmp(line, "GLOBAL", 6) == 0)
+        { 
+            int temp[7] = {0};
             sscanf(line, "GLOBAL,%[^,],%d,%d,%d,%d,%d,%d,%d,%d", 
                     rat->rgb_scheme,
                     &rat->scheme_duration,
@@ -125,6 +138,14 @@ void save_config(Mouse* rat, const char* config_path)
             rat->cycle_enabled_colors[5]? 1 : 0,
             rat->cycle_enabled_colors[6]? 1 : 0
            ); 
+    fprintf(file, "# button:bind 1:L, 2:M, 3:R, 4:b, 5:f\n");
+    fprintf(file, "BUTTON,1:%d,2:%d,3:%d,4:%d,5:%d\n",
+            rat->button_map[1],
+            rat->button_map[2],
+            rat->button_map[3],
+            rat->button_map[4],
+            rat->button_map[5]
+           );
     fprintf(file, "# 1 for volume, 0 for scroll\n");
     fprintf(file, "Scroll, %d\n", rat->volume_mode);
 

@@ -8,15 +8,24 @@
 #include <stdlib.h>
 
 
-typedef enum {
-    M_YELLOW = 0x01, // Bit 0
-    M_BLUE   = 0x02, // Bit 1
-    M_VIOLET = 0x04, // Bit 2
-    M_GREEN  = 0x08, // Bit 3
-    M_RED    = 0x10, // Bit 4
-    M_CYAN   = 0x20, // Bit 5
-    M_WHITE  = 0x40  // Bit 6
+typedef enum 
+{
+    M_YELLOW = 0x01,
+    M_BLUE   = 0x02,
+    M_VIOLET = 0x04,
+    M_GREEN  = 0x08,
+    M_RED    = 0x10,
+    M_CYAN   = 0x20,
+    M_WHITE  = 0x40,
 } MouseColor;
+
+/* 
+    M_LEFT     = 0x01,
+    M_MIDDLE   = 0x02,
+    M_RIGHT    = 0x03,
+    M_BACKWARD = 0x04,
+    M_FORWARD  = 0x05,
+*/
 
 uint8_t prepare_color_mask(bool colors[7])
 { 
@@ -103,6 +112,15 @@ uint8_t scale_colors(int value)
 uint8_t active_byte(int profile_index)
 { 
     return (uint8_t)(0x40 - 1 + profile_index);
+}
+
+void build_button_payload(uint8_t *packet, uint8_t source, uint8_t dest) 
+{ 
+    memset(packet, 0, INSTRUCTION_LENGTH);
+    packet[0] = 0x07;
+    packet[1] = 0x10;
+    packet[2] = source;
+    packet[3] = dest;
 }
 
 void build_dpi_payload(uint8_t *packet, int profile_index, int dpi_count, uint8_t active_mask)

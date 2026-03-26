@@ -24,6 +24,8 @@ typedef struct
     uint8_t cyclic_color_mask;
     bool cycle_enabled_colors[7];
 
+    /* 0 : un, 1 : l, 2 : m, 3 : r, 4 : b, 5 : f, */
+    uint8_t button_map[6];
     Profile_config profiles[6];
     bool volume_mode;
 

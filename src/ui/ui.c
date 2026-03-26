@@ -48,6 +48,8 @@ const char* rgb_scheme_options = "Off;Fixed;Static;Cyclic";
 const char* scroll_options = { "Scroll;Volume" };
 
 const char* rgb_map[] = { "Off", "Fixed", "Static", "Cyclic" };
+const char* button_map[] = { "Left", "Middle", "Right", "Backward", "Forward" };
+const char* button_options = { "Left;Middle;Right;Backward;Forward" };
 
 const char* colors_for_selection[] = { 
     "Yellow",
