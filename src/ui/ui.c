@@ -207,8 +207,6 @@ void button_remap(int x, int y, Mouse* rat)
         if (active_dropdown != -1 && i > active_dropdown) continue;
         int temp_value = rat->button_map[i];
         bool is_editing = (active_dropdown == i);
-        if ( i == 1)
-        printf("%d\n", temp_value);
 
         if (GuiDropdownBox(getRectangle(x + 60, y + (_fontSize * 2) * i, "-Forward-", 0, 0), button_options, 
                     &temp_value, is_editing))
@@ -474,7 +472,7 @@ int main()
             int temp_scroll = rat.volume_mode;
             GuiLabel(getRectangle(245, _vertical_padding, "Scroll-Wheel:", 0, 0), "Scroll-Wheel:");
             rat.volume_mode = select_volume_mode(245, _vertical_padding * 2.4f, &temp_scroll);
-            GuiLabel(getRectangle(5, _vertical_padding * 18.8f, "Remap Buttons:", 0, 0), "Remap Buttons:");
+            GuiLabel(getRectangle(5, _vertical_padding * 19.8f, "Remap Buttons:", 0, 0), "Remap Buttons:");
             button_remap(0, _vertical_padding * 19.8f, &rat);
         }
         EndDrawing(); 
