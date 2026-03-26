@@ -340,8 +340,8 @@ int main()
 
                 if (color_picker_profile_index != -1)
                 { 
-                    Rectangle color_picker = {100, 179 + _vertical_padding, 200, 200};
-                    Rectangle buttonClose = { 305, 171, 20, 20 };
+                    Rectangle color_picker = {100, 179 + _vertical_padding, 150, 150};
+                    Rectangle buttonClose = { 255, 171, 20, 20 };
                     GuiColorPicker(color_picker, TextFormat("Profile %d:", color_picker_profile_index + 1), &temp_color[color_picker_profile_index]);
 
                     if(GuiButton(buttonClose, "X"))
