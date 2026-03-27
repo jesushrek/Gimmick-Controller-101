@@ -29,9 +29,8 @@
 
 int main(int argc, char* argv[]) 
 { 
-    char* config_path = get_config_path();
+    char* config_path = NULL;
     Mouse mouse = {0};
-    load_config(&mouse, config_path);
 
     libusb_context* ctx;
     int result = libusb_init_context(&ctx, NULL, 0);
@@ -41,12 +40,13 @@ int main(int argc, char* argv[])
 
     mouse_init(&mouse, ctx);
 
-    if (!parse_arguments(argc, argv, &mouse))
+    if (!parse_arguments(argc, argv, &mouse, &config_path))
     {
-        printf("Usage: %s [-p 1-6] [-dpi value] [-color RRGGBB] [-volume] [-scroll] [-sync]\n", argv[0]);
+        printf("Usage: %s [-p 1-6] [-dpi value] [-color RRGGBB] [-volume] [-scroll] [-save] [-path path/to/config]\n", argv[0]);
         return -1;
     }
 
+    load_config(&mouse, config_path);
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
     //save_config(&mouse, config_path);

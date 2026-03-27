@@ -26,10 +26,11 @@ static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
     }
 }
 
-bool parse_arguments(int argc, char* argv[], Mouse *rat)
+bool parse_arguments(int argc, char* argv[], Mouse *rat, char** config_path)
 { 
-    char* config_path = get_config_path(); 
-    if (argc <= 1) return false;
+    *config_path = get_config_path();
+    if (argc <= 1) return true;
+
     for (int i = 1; i < argc; ++i)
     { 
         if (strcmp(argv[i], "-p") == 0 && (i + 1) < argc)
@@ -37,12 +38,12 @@ bool parse_arguments(int argc, char* argv[], Mouse *rat)
             int input_profile = atoi(argv[++i]);
             rat->current_profile_index = ((input_profile - 1) % 6 + 6) % 6 + 1;
         }
-        else if (strcmp(argv[i], "-dpi") == 0 && (i + 1) < argc)
+        if (strcmp(argv[i], "-dpi") == 0 && (i + 1) < argc)
         { 
             int idx = rat->current_profile_index - 1;
             rat->profiles[idx].dpi_value = atoi(argv[++i]);
         }
-        else if (strcmp(argv[i], "-color") == 0 && (i + 1) < argc)
+        if (strcmp(argv[i], "-color") == 0 && (i + 1) < argc)
         { 
             int idx = rat->current_profile_index - 1;
             hex_to_rgb(
@@ -52,21 +53,25 @@ bool parse_arguments(int argc, char* argv[], Mouse *rat)
                     &rat->profiles[idx].blue
                     );
         }
-        else if (strcmp(argv[i], "-volume") == 0 && (i + 1) < argc)
+        if (strcmp(argv[i], "-volume") == 0) 
         { 
             rat->volume_mode = true;
         }
-        else if (strcmp(argv[i], "-scroll") == 0 && (i + 1) < argc)
+        if (strcmp(argv[i], "-scroll") == 0)
         { 
             rat->volume_mode = false;
         }
-        else if (strcmp(argv[i], "-sync") == 0)
+        if (strcmp(argv[i], "-path") == 0 && (i + 1) < argc)
         { 
-            save_config(rat, config_path);
+            free(*config_path);
+            *config_path = strdup(argv[++i]);
+        }
+        if (strcmp(argv[i], "-save") == 0)
+        { 
+            save_config(rat, *config_path);
         }
     }
 
-    free(config_path);
     return true;
 }
 

@@ -43,14 +43,12 @@ uint8_t prepare_color_mask(bool colors[7])
 
 uint8_t active_profile_byte(int states[6])
 { 
-    return  ( 
-            states[0] << 0 | states[1] << 1 | states[2] << 2 | states[3] << 3 | states[4] << 4 | states[5] << 5
-            );
+    return (states[0] << 0 | states[1] << 1 | states[2] << 2 | states[3] << 3 | states[4] << 4 | states[5] << 5);
 }
 
 int snap_dpi(int dpi_count)
 {     
-    int g_DPI_ARR[] = { 200, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 3200, 4000, 4800, };
+    static int g_DPI_ARR[] = { 200, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 3200, 4000, 4800, };
 
     size_t total_dpi = sizeof(g_DPI_ARR) / sizeof(*g_DPI_ARR);
 

@@ -213,7 +213,7 @@ void button_remap(int x, int y, Mouse* rat, int* values)
         {
             if (is_editing) active_dropdown = -1;
             else
-            active_dropdown = i;
+                active_dropdown = i;
         }
     }
 

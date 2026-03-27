@@ -21,10 +21,10 @@ char* get_config_path()
         perror("getpwuid() error");
     }
 
-    char* buffer = malloc(sizeof(char) * 255);
+    char buffer[255] = {0};
     sprintf(buffer, "/home/%s/.config/gimmicks.csv", p->pw_name);
 
-    return buffer;
+    return strdup(buffer);
 }
 
 void load_config(Mouse* rat, const char* config_path)
