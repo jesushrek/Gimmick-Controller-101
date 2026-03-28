@@ -26,10 +26,9 @@ static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
     }
 }
 
-bool parse_arguments(int argc, char* argv[], Mouse *rat, char** config_path)
+void parse_arguments(int argc, char* argv[], Mouse *rat, bool* should_save)
 { 
-    *config_path = get_config_path();
-    if (argc <= 1) return true;
+    if (argc <= 1) return;
 
     for (int i = 1; i < argc; ++i)
     { 
@@ -61,19 +60,18 @@ bool parse_arguments(int argc, char* argv[], Mouse *rat, char** config_path)
         { 
             rat->volume_mode = false;
         }
-        if (strcmp(argv[i], "-path") == 0 && (i + 1) < argc)
-        { 
-            free(*config_path);
-            *config_path = strdup(argv[++i]);
-            load_config(rat, *config_path);
-        }
+        /*
+           if (strcmp(argv[i], "-path") == 0 && (i + 1) < argc)
+           { 
+           if (*config_path) free(*config_path);
+         *config_path = strdup(argv[++i]);
+         }
+         */
         if (strcmp(argv[i], "-save") == 0)
         { 
-            save_config(rat, *config_path);
+            *should_save = true;
         }
     }
-
-    return true;
 }
 
 #endif

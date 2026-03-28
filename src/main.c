@@ -24,32 +24,36 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include <libusb-1.0/libusb.h>
-
 
 int main(int argc, char* argv[]) 
 { 
-    char* config_path = get_config_path();
+    char* config_path = NULL;
+
+    for (int i = 1; i < argc; ++i)
+        if (strcmp(argv[i], "-path") == 0 && (i + 1) < argc)
+            config_path = strdup(argv[++i]);
+
+    if (config_path == NULL)
+        config_path = get_config_path();
+
     Mouse mouse = {0};
+    load_config(&mouse, config_path);
     libusb_context* ctx = NULL;
 
-    int result = libusb_init_context(&ctx, NULL, 0);
-    mouse_init(&mouse, ctx);
-    load_config(&mouse, config_path);
-
-    if (result)
-        printf("Error code: %d", result);
-
-    if (!parse_arguments(argc, argv, &mouse, &config_path))
-    {
-        printf("Usage: %s [-p 1-6] [-dpi value] [-color RRGGBB] [-volume] [-scroll] [-save] [-path path/to/config]\n", argv[0]);
-        return -1;
+    if (libusb_init_context(&ctx, NULL, 0)) {
+        printf("Failed to init libusb\n");
+        return 1;
     }
 
+    bool should_save = false;
+
+    parse_arguments(argc, argv, &mouse, &should_save);
+    mouse_init(&mouse, ctx);
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
-    //save_config(&mouse, config_path);
-    free(config_path);
 
+    if (should_save) save_config(&mouse, config_path);
     return 0;
 }
