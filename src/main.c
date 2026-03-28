@@ -29,16 +29,16 @@
 
 int main(int argc, char* argv[]) 
 { 
-    char* config_path = NULL;
+    char* config_path = get_config_path();
     Mouse mouse = {0};
+    libusb_context* ctx = NULL;
 
-    libusb_context* ctx;
     int result = libusb_init_context(&ctx, NULL, 0);
+    mouse_init(&mouse, ctx);
+    load_config(&mouse, config_path);
 
     if (result)
         printf("Error code: %d", result);
-
-    mouse_init(&mouse, ctx);
 
     if (!parse_arguments(argc, argv, &mouse, &config_path))
     {
@@ -46,7 +46,6 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    load_config(&mouse, config_path);
     mouse_apply(&mouse);
     mouse_close(&mouse, ctx);
     //save_config(&mouse, config_path);

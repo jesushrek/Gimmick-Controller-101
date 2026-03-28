@@ -68,15 +68,28 @@ void mouse_apply(Mouse* rat)
     for (int i = 0; i < 6; ++i)
         states[i] = rat->profiles[i].is_active;
 
-    for (uint8_t i = 1; i <= 5; ++i)
+    bool changed_buttons = false;
+
+    for (int i = 1; i <= 5; ++i)
+    {
+        if (rat->button_map[i] != i)
+        {
+            changed_buttons = true;
+            break;
+        }
+    }
+
+    if (changed_buttons) 
     { 
-        uint8_t target = rat->button_map[i];
-        build_button_payload(packet, i, target);
-        sendPayload(rat->handle, packet);
+        for (uint8_t i = 1; i <= 5; ++i)
+        { 
+            uint8_t target = rat->button_map[i];
+            build_button_payload(packet, i, target);
+            sendPayload(rat->handle, packet);
+        }
     }
 
     uint8_t active_mask = active_profile_byte(states);
-
     for (int i = 0; i < 6; ++i)
     { 
         build_dpi_payload(packet, i + 1, rat->profiles[i].dpi_value, active_mask);
@@ -87,6 +100,7 @@ void mouse_apply(Mouse* rat)
 
     build_rgb_payload(packet, rat->cyclic_color_mask, rat->rgb_scheme, rat->scheme_duration);
     sendPayload(rat->handle, packet);
+    
     for (int i = 0; i < 6; ++i)
     { 
         build_color_payload(i+1, packet, 

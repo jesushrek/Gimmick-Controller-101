@@ -65,6 +65,7 @@ bool parse_arguments(int argc, char* argv[], Mouse *rat, char** config_path)
         { 
             free(*config_path);
             *config_path = strdup(argv[++i]);
+            load_config(rat, *config_path);
         }
         if (strcmp(argv[i], "-save") == 0)
         { 
