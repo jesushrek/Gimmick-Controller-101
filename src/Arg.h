@@ -28,7 +28,10 @@ static void hex_to_rgb(const char* hex, uint8_t* r, uint8_t* g, uint8_t* b)
 
 void parse_arguments(int argc, char* argv[], Mouse *rat, bool* should_save)
 { 
-    if (argc <= 1) return;
+    if (argc <= 1) { 
+        printf("%s [-p 1-6] [-dpi value] [-color RRGGBB] [-volume or -scroll] [-save]\n", argv[0]);
+        return;
+    }
 
     for (int i = 1; i < argc; ++i)
     { 
