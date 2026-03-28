@@ -15,7 +15,7 @@ sudo usermod -aG plugdev $USER
 sudo vim /etc/udev/rules.d/99-fantech-x9.rules 
 then paste :-
 
-ACTION=="add" SUBSYSTEM=="usb", ATTR{idVendor}=="18f8", ATTR{idProduct}=="0fc0", MODE="0660", GROUP="plugdev", RUN+="path/to/utility -path path/to/config.csv"
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="18f8", ATTR{idProduct}=="0fc0", MODE="0660", GROUP="plugdev", RUN+="path/to/utility -path path/to/config.csv"
 
 ## Warning:
 The ui may not be as reliable as changing the ~/.config/gimmicks.csv yourself, as this is the first gui I have ever written.
