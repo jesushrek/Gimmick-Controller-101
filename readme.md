@@ -35,3 +35,6 @@ The ui may not be as reliable as changing the ~/.config/gimmicks.csv yourself, a
 
 - See [license](./license) for full license and warranty disclaimer.
 - Copyright (C) 2026 Sandesh Paudel
+
+## हार्दिक श्रद्धाञ्जली 2024 - 2026 
+The mouse is dead so this project is discontinued. 
